@@ -2,3 +2,16 @@ py -m venv venv
 pip freeze
 venv\Scripts\activate
 py manage.py runserver
+py manage.py migrate
+
+
+
+Producto(nombre="Honda Navi 110",descripcion="lorem ipsum",precio=3000,stock="10")
+Repuesto(nombre="Honda Navi 110",descripcion="lorem ipsum",precio=3000,stock="10")
+Suscriptor(nombre="Roberto Gomez",email="roberto@gomez.com",fecha_suscripcion="")
+datos()
+
+class Suscriptor(models.Model):
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    fecha_suscripcion = models.DateTimeField(auto_now_add=True)

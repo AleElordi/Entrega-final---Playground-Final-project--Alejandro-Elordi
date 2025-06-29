@@ -3,14 +3,14 @@ from django.shortcuts import render
 def inicio(request):
     return render(request, "AppCoder/index.html")
 
-def cursos(request):
-    return render(request, "AppCoder/cursos.html")
+def datos(request):
+    return render(request, "AppCoder/datos.html")
 
-def profesores(request):
-    return render(request, "AppCoder/profesores.html")
+def productos(request):
+    return render(request, "AppCoder/productos.html")
 
-def estudiantes(request):
-    return render(request, "AppCoder/estudiantes.html")
+def repuestos(request):
+    return render(request, "AppCoder/repuestos.html")
 
-def entregables(request):
-    return render(request, "AppCoder/entregables.html")
+def suscriptores(request):
+    return render(request, "AppCoder/suscriptores.html")

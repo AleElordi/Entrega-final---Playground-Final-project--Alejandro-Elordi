@@ -1,21 +1,27 @@
 from django.db import models
 
-class Curso(models.Model):
-    nombre = models.CharField(max_length=100)  # Campo string de 100 caracteres
-    camada = models.IntegerField()  # Campo entero
+class Producto(models.Model):
+    nombre = models.CharField(max_length=100)
+    marca = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    precio = models.IntegerField()
+    stock = models.IntegerField()
 
-class Estudiante(models.Model):
-    nombre = models.CharField(max_length=30)  # Campo string de 100 caracteres
-    apellido = models.CharField(max_length=30)  # Campo string de 100 caracteres
-    email = models.EmailField()  # Campo de email
+class Repuesto(models.Model):
+    nombre = models.CharField(max_length=100)
+    marca = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    precio = models.IntegerField()
+    stock = models.IntegerField()
 
-class Profesor(models.Model):
-    nombre = models.CharField(max_length=30)  # Campo string de 30 caracteres
-    apellido = models.CharField(max_length=30)  # Campo string de 30 caracteres
-    email = models.EmailField()  # Campo de email
-    profesion = models.CharField(max_length=50)  # Campo string de 50 caracteres
+class Suscriptor(models.Model):
+    nombreCompleto = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    fecha_suscripcion = models.DateTimeField(auto_now_add=True)
 
-class Entregable(models.Model):
-    nombre = models.CharField(max_length=100)  # Campo string de 100 caracteres
-    fechaDeEntrega = models.DateField()  # Campo de fecha
-    entregado = models.BooleanField()  # Campo booleano
+class Datos(models.Model):
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    telefono = models.CharField(max_length=15, blank=True, null=True)
+    direccion = models.TextField(blank=True, null=True)
+
