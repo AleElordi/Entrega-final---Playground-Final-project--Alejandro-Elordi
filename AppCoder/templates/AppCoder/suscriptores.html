@@ -1,10 +1,35 @@
-{% extends 'AppCoder/padre.html'  %}
+{% extends 'AppCoder/padre.html' %}
 {% load static %}
 
-{% block title %}Suscriptores{% endblock %}
+{% block title%}Suscriptores{% endblock %}
 
 {% block content %}
+{% if form.errors %}
+    <div class="alert alert-danger">
+    <strong>Error:</strong> Por favor, corrige los errores en el formulario.
+    </div>
+{% endif %}
+
     <h1>Suscriptores</h1>
-    <p>Esta es una página de ejemplo creada con Django.</p>
-    <p>Utiliza el menú para navegar por las diferentes secciones.</p>
+
+    <h2>Deja tus datos para que te enviemos todas las novedades de motos y repuestos</h2>
+    <form method="POST" action="{% url 'suscriptores' %}">
+        {% csrf_token %}
+        <table class="table table-borderless">
+             {% if form.email.errors %}
+                    <div style="color:red;">
+                        <span>{{ form.email.errors.0 }}</span>
+                    </div>
+            {% endif %}
+            {% if mensaje_exito %}
+                    <div class="alert alert-success">
+                        <p>{{ mensaje_exito }}</p>
+                    </div>
+            {% endif %}
+            {{ form.as_table }}
+        </table>
+        <div class="d-grid">>
+                <input type="submit" class="btn btn-primary" value="Enviar">
+        </div>
+    </form>
 {% endblock %}

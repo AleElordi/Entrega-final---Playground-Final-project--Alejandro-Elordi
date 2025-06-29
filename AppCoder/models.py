@@ -3,6 +3,7 @@ from django.db import models
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     marca = models.CharField(max_length=100)
+    foto = models.TextField()
     descripcion = models.TextField()
     precio = models.IntegerField()
     stock = models.IntegerField()
@@ -10,6 +11,7 @@ class Producto(models.Model):
 class Repuesto(models.Model):
     nombre = models.CharField(max_length=100)
     marca = models.CharField(max_length=100)
+    foto = models.TextField()
     descripcion = models.TextField()
     precio = models.IntegerField()
     stock = models.IntegerField()
