@@ -21,4 +21,6 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludar/', views.saludar, name='saludar'),
+    path('', views.index, name='index'),
+    path('current_datetime/', views.current_datetime, name='current_datetime'),
 ]
