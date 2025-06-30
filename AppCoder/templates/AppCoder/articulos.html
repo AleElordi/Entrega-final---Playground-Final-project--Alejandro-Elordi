@@ -1,0 +1,29 @@
+{% extends 'AppCoder/padre.html' %}
+{% block title %}Agregar Artículos{% endblock %}
+{% block content %}
+    <h1>Agregar Producto</h1>
+    {% if mensaje_producto %}
+        <div class="alert alert-success">{{ mensaje_producto }}</div>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ producto_form.as_table }}
+        <div class="d-grid">
+            <input type="submit" name="producto_submit" class="btn btn-primary" value="Agregar Producto">
+        </div>
+    </form>
+
+    <hr>
+
+    <h1>Agregar Repuesto</h1>
+    {% if mensaje_repuesto %}
+        <div class="alert alert-success">{{ mensaje_repuesto }}</div>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ repuesto_form.as_table }}
+        <div class="d-grid">
+            <input type="submit" name="repuesto_submit" class="btn btn-primary" value="Agregar Repuesto">
+        </div>
+    </form>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib import admin
-from AppCoder.views import datos, resBusqueda, suscriptores, inicio, buscador
+from AppCoder.views import datos, resBusqueda, suscriptores, inicio, buscador, articulos
 
 
 urlpatterns = [
@@ -9,5 +9,6 @@ urlpatterns = [
     path('datos/', datos, name='datos'),
     path('suscriptores/', suscriptores, name='suscriptores'),
     path('buscador/', buscador, name='buscador'),
-    path('resBuscador/', resBusqueda, name='resBuscador'),
+    path('resBuscador/', resBusqueda, name='resBusqueda'),
+    path('articulos/', articulos, name='articulos'),
 ]
