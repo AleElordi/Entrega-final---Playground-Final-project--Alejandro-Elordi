@@ -4,32 +4,52 @@
 {% block title%}Suscriptores{% endblock %}
 
 {% block content %}
-{% if form.errors %}
-    <div class="alert alert-danger">
-    <strong>Error:</strong> Por favor, corrige los errores en el formulario.
-    </div>
-{% endif %}
 
-    <h1>Suscriptores</h1>
+    <div class="container py-5 bg-light">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+                    <div class="card shadow rounded">
+                        <div class="card-body">
 
-    <h2>Deja tus datos para que te enviemos todas las novedades de motos y repuestos</h2>
-    <form method="POST" action="{% url 'suscriptores' %}">
-        {% csrf_token %}
-        <table class="table table-borderless">
-             {% if form.email.errors %}
-                    <div style="color:red;">
-                        <span>{{ form.email.errors.0 }}</span>
-                    </div>
-            {% endif %}
-            {% if mensaje_exito %}
-                    <div class="alert alert-success">
-                        <p>{{ mensaje_exito }}</p>
-                    </div>
-            {% endif %}
-            {{ form.as_table }}
-        </table>
-        <div class="d-grid">>
-                <input type="submit" class="btn btn-primary" value="Enviar">
-        </div>
-    </form>
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                            <strong>Error:</strong> Por favor, corrige los errores en el formulario.
+                            </div>
+                        {% endif %}
+
+
+                    <h1 class="text-center mb-4">Suscriptores</h1>
+                    <h2 class="text-center h5 mb-4 text-secondary">
+                        Deja tus datos para que te enviemos todas las novedades de motos y repuestos
+                    </h2>
+
+
+                    <form method="POST" action="{% url 'suscriptores' %}">
+                        {% csrf_token %}
+                        <table class="table table-borderless">
+                                {% if form.email.errors %}
+                                    <div class="text-danger mb-2">
+                                        <small>{{ form.email.errors.0 }}</small>
+                                    </div>
+                                {% endif %}
+
+                                {% if mensaje_exito %}
+                                <div class="mb-3">
+                                    <div class="alert alert-success">
+                                        <p class="mb-0">{{ mensaje_exito }}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                            {{ form.as_table }}
+
+
+                        </table>
+                        <div class="d-grid">
+                                <input type="submit" class="btn btn-primary" value="Enviar">
+                        </div>
+                    </form>
+
+
+
 {% endblock %}

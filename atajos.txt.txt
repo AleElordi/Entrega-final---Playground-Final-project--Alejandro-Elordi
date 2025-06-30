@@ -5,11 +5,3 @@ py manage.py runserver
 
 Para BBDD
 py manage.py migrate
-
-
-
-Producto(nombre="Honda Navi 110",descripcion="lorem ipsum",precio=3000,stock="10")
-Repuesto(nombre="Honda Navi 110",descripcion="lorem ipsum",precio=3000,stock="10")
-Suscriptor(nombre="Roberto Gomez",email="roberto@gomez.com",fecha_suscripcion="")
-datos()
-

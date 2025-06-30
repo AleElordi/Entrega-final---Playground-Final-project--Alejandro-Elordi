@@ -4,7 +4,11 @@
 {% block title %}Buscador{% endblock %}
 
 {% block content %}
-    <h2>Buscar por marca</h2>
+
+<div class="container my-5">
+<h2 class="mb-4">Buscador de prodcutos por marca</h2>
+<div class="card-custom">
+
     <form method="get" action="{% url 'resBusqueda' %}">
         <input type="text" name="marca" placeholder="Marca" value="{{ request.GET.marca }}">
         <button type="submit">Buscar</button>
@@ -31,4 +35,6 @@
     {% else %}
         <p>No hay repuestos cargados.</p>
     {% endif %}
+</div>
+</div>
 {% endblock %}
