@@ -21,6 +21,7 @@ class Suscriptor(models.Model):
     email = models.EmailField(unique=True)
     fecha_suscripcion = models.DateTimeField(auto_now_add=True)
 
+#Finalmente no utilice esta calase, pero la dejo por si en un futuro proyecto la necesito
 class Datos(models.Model):
     nombre = models.CharField(max_length=100)
     email = models.EmailField(unique=True)

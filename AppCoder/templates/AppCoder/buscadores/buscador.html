@@ -5,36 +5,73 @@
 
 {% block content %}
 
-<div class="container my-5">
-<h2 class="mb-4">Buscador de prodcutos por marca</h2>
-<div class="card-custom">
+<div></div>
+    <div class="container my-5">
+    <h1 class="mb-4">Buscador de productos por marca</h1>
 
-    <form method="get" action="{% url 'resBusqueda' %}">
-        <input type="text" name="marca" placeholder="Marca" value="{{ request.GET.marca }}">
-        <button type="submit">Buscar</button>
-    </form>
-    <hr>
-    <h3>Todos los productos</h3>
-    {% if productos %}
-        <ul>
-            {% for producto in productos %}
-                <li>{{ producto.nombre }} - {{ producto.marca }} - {{ producto.precio }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay productos cargados.</p>
-    {% endif %}
+        <form method="get" action="{% url 'resBusqueda' %}">
+            <input type="text" name="marca" placeholder="Marca" value="{{ request.GET.marca }}">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
 
-    <h3>Todos los repuestos</h3>
-    {% if repuestos %}
-        <ul>
-            {% for repuesto in repuestos %}
-                <li>{{ repuesto.nombre }} - {{ repuesto.marca }} - {{ repuesto.precio }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay repuestos cargados.</p>
-    {% endif %}
+    <div class="container text-center justify-content-center">
+
+        <div class="row">
+            <h2>Todos los productos</h2>
+                <div class="col-4">
+                {% if productos %}
+                    <ul>
+                        {% for producto in productos %}
+                            <li class="col">
+                                <div class="col-6 card h-100 shadow-sm">
+                                <div class="card h-100 shadow-sm">
+                                    <img src=" {{ producto.foto }} "
+                                    class="card-img-top" alt="{{ producto.nombre }}">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                                    <p class="card-text">{{ producto.marca }}</p>
+                                    <p class="card-text">{{ producto.descripcion }}</p>
+                                    <p class="fw-bold">U$D {{ producto.precio }}</p>
+                                    </div>
+                                </div>
+                                </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No hay productos cargados.</p>
+                {% endif %}
+                </div>
+        </div>
+
+        <div class="row">
+            <h2>Todos los repuestos</h2>
+            <div class="col-4">
+            {% if repuestos %}
+            <ul>
+                {% for repuesto in repuestos %}
+                    <li>
+                        <div class="col">
+                        <div class="col-6 card h-100 shadow-sm">
+                            <img src=" {{ repuesto.foto }} "
+                            class="card-img-top" alt="{{ repuestonombre }}">
+                            <div class="card-body">
+                            <h5 class="card-title">{{ repuestonombre }}</h5>
+                            <p class="card-text">{{repuesto.marca }}</p>
+                            <p class="card-text">{{repuesto.descripcion }}</p>
+                            <p class="fw-bold">U$D {{repuesto.precio }}</p>
+                        </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>No hay repuestos cargados.</p>
+            {% endif %}
+            </div>
+        </div>
+
+    </div>
 </div>
-</div>
+
 {% endblock %}

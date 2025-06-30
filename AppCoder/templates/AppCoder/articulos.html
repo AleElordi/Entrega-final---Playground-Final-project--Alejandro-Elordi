@@ -21,7 +21,7 @@
                         <form method="POST">
                             {% csrf_token %}
                             {{ producto_form.as_table }}
-                            <div class="d-grid">
+                            <div class="py-3">
                                 <input type="submit" name="producto_submit" class="btn btn-primary" value="Agregar Producto">
                             </div>
                         </form>
@@ -40,7 +40,7 @@
                     <form method="POST">
                         {% csrf_token %}
                         {{ repuesto_form.as_table }}
-                        <div class="d-grid">
+                        <div class="py-3">
                             <input type="submit" name="repuesto_submit" class="btn btn-primary" value="Agregar Repuesto">
                         </div>
                     </form>
