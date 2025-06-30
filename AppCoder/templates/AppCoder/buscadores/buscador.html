@@ -5,73 +5,77 @@
 
 {% block content %}
 
-<div></div>
-    <div class="container my-5">
+<div class="container mt-5 justify-content-center">
+    <div class="row justify content-center">
     <h1 class="mb-4">Buscador de productos por marca</h1>
 
         <form method="get" action="{% url 'resBusqueda' %}">
             <input type="text" name="marca" placeholder="Marca" value="{{ request.GET.marca }}">
             <button type="submit">Buscar</button>
         </form>
+</div>
+
+<div class="row text-center justify-content-center">
+
+    <div class="row">
+        <h2>Todos los productos</h2>
+            <div class="col-12">
+            {% if productos %}
+            <div class="row justify-content-center">
+                    {% for producto in productos %}
+                        <div class="col-4 py-3">
+                            <div class="col-12 card h-100 shadow-sm">
+                            <div class="card h-100 shadow-sm">
+                                <img src=" {{ producto.foto }} " class="card-img-top" alt="{{ producto.nombre }}">
+                                <div class="card-body">
+                                <h3 class="card-title">{{ producto.nombre }}</h3>
+                                <p class="card-text">{{ producto.marca }}</p>
+                                <p class="card-text">{{ producto.descripcion }}</p>
+                                <p class="fw-bold">U$D {{ producto.precio }}</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+            {% else %}
+                <p>No hay productos cargados.</p>
+            {% endif %}
+            </div>
+            </div>
     </div>
 
-    <div class="container text-center justify-content-center">
-
-        <div class="row">
-            <h2>Todos los productos</h2>
-                <div class="col-4">
-                {% if productos %}
-                    <ul>
-                        {% for producto in productos %}
-                            <li class="col">
-                                <div class="col-6 card h-100 shadow-sm">
-                                <div class="card h-100 shadow-sm">
-                                    <img src=" {{ producto.foto }} "
-                                    class="card-img-top" alt="{{ producto.nombre }}">
-                                    <div class="card-body">
-                                    <h5 class="card-title">{{ producto.nombre }}</h5>
-                                    <p class="card-text">{{ producto.marca }}</p>
-                                    <p class="card-text">{{ producto.descripcion }}</p>
-                                    <p class="fw-bold">U$D {{ producto.precio }}</p>
-                                    </div>
-                                </div>
-                                </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No hay productos cargados.</p>
-                {% endif %}
-                </div>
-        </div>
-
-        <div class="row">
-            <h2>Todos los repuestos</h2>
-            <div class="col-4">
+       
+    <div class="row">
+        <h2>Todos los repuestos</h2>
+            <div class="col-12">
             {% if repuestos %}
-            <ul>
+            <div class="row justify-content-center">
                 {% for repuesto in repuestos %}
-                    <li>
-                        <div class="col">
-                        <div class="col-6 card h-100 shadow-sm">
-                            <img src=" {{ repuesto.foto }} "
-                            class="card-img-top" alt="{{ repuestonombre }}">
+                    <div class="col-4 py-3">
+                        <div class="col-12 card h-100 shadow-sm">
+                        <div class="card h-100 shadow-sm">
+                            <img src=" {{ repuesto.foto }} " class="card-img-top" alt="{{ repuestonombre }}">
                             <div class="card-body">
-                            <h5 class="card-title">{{ repuestonombre }}</h5>
+                            <h3 class="card-title">{{ repuestonombre }}</h3>
                             <p class="card-text">{{repuesto.marca }}</p>
                             <p class="card-text">{{repuesto.descripcion }}</p>
                             <p class="fw-bold">U$D {{repuesto.precio }}</p>
+                            </div>
                         </div>
                         </div>
-                    </li>
+                    </div>
                 {% endfor %}
-            </ul>
+
             {% else %}
                 <p>No hay repuestos cargados.</p>
             {% endif %}
             </div>
-        </div>
+            </div>
 
+            </div>
     </div>
+
 </div>
 
 {% endblock %}
