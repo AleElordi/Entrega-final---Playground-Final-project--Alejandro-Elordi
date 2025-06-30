@@ -1,19 +1,12 @@
 from django.shortcuts import render
-from .models import  Suscriptor
+from .models import  Suscriptor, Repuesto, Producto
 from .forms import datosSuscriptor
-
 
 def inicio(request):
     return render(request, "AppCoder/index.html")
 
 def datos(request):
     return render(request, "AppCoder/datos.html")
-
-def productos(request):
-    return render(request, "AppCoder/productos.html")
-
-def repuestos(request):
-    return render(request, "AppCoder/repuestos.html")
 
 def suscriptores(request):
     mensaje_exito = None
@@ -39,3 +32,23 @@ def suscriptores(request):
         form = datosSuscriptor()
 
     return render(request, "AppCoder/suscriptores.html", {'form': form, 'mensaje_exito': mensaje_exito})
+
+def buscador(request):
+    productos = Producto.objects.all()
+    repuestos = Repuesto.objects.all()
+    contexto = {
+        "productos": productos,
+        "repuestos": repuestos,
+    }
+    return render(request, "AppCoder/buscadores/buscador.html", contexto)
+
+def resBusqueda(request):
+    marca = request.GET.get("marca", "")
+    productos = Producto.objects.filter(marca__icontains=marca)
+    repuestos = Repuesto.objects.filter(marca__icontains=marca)
+    contexto = {
+        "marca": marca,
+        "productos": productos,
+        "repuestos": repuestos,
+    }
+    return render(request, "AppCoder/buscadores/resBusqueda.html", contexto)

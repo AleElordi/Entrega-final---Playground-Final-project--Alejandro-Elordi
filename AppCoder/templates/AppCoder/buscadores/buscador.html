@@ -1,0 +1,34 @@
+{% extends 'AppCoder/padre.html' %}
+{% load static %}
+
+{% block title %}Buscador{% endblock %}
+
+{% block content %}
+    <h2>Buscar por marca</h2>
+    <form method="get" action="{% url 'resBusqueda' %}">
+        <input type="text" name="marca" placeholder="Marca" value="{{ request.GET.marca }}">
+        <button type="submit">Buscar</button>
+    </form>
+    <hr>
+    <h3>Todos los productos</h3>
+    {% if productos %}
+        <ul>
+            {% for producto in productos %}
+                <li>{{ producto.nombre }} - {{ producto.marca }} - {{ producto.precio }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay productos cargados.</p>
+    {% endif %}
+
+    <h3>Todos los repuestos</h3>
+    {% if repuestos %}
+        <ul>
+            {% for repuesto in repuestos %}
+                <li>{{ repuesto.nombre }} - {{ repuesto.marca }} - {{ repuesto.precio }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay repuestos cargados.</p>
+    {% endif %}
+{% endblock %}
