@@ -1,0 +1,43 @@
+{% extends 'AppCoder/padre.html' %}
+{% load static %}
+
+{% block title %}Inicio - Proyecto Django{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+<h2 class="mb-4">Consigna y datos del proyecto</h2>
+<div class="card-custom">
+    <h3>Consigna</h3>
+    <p>
+        Crea una web en Django utilizando Herencia de plantillas, con un modelo de por lo menos 3 clases, 
+        un formulario para ingresar datos a las 3 clases y un formulario para buscar algo en la BD, 
+        no hace falta que sea sobre las tres clases, con realizar búsqueda sobre una alcanzará.
+    </p>
+    <p>Te sugerimos que hagas una web estilo blog para ir preparando en la entrega final.</p>
+
+    <span>Resuelto: Exiten 3 formularios de ingreso de datos para "suscriptores", "Productos" y "Repuestos" a la base de datos</span>
+</div>
+
+<div class="card-custom">
+    <h3>Objetivos</h3>
+    <ul>
+        <li>Desarrollar tu primer WEB en Django utilizando patrón MVT <span class="fw-bold">- Completado</span></li>
+    </ul>
+</div>
+
+<div class="card-custom">
+    <h3>Requisitos</h3>
+    <ul>
+        <li>Link de GitHub con el proyecto totalmente subido a la plataforma.</li>
+        <li>Proyecto Web Django con patrón MVT que incluya:</li>
+        <ul>
+            <li>Herencia de HTML. <span class="fw-bold">- Completado</span> </li>
+            <li>Por lo menos 3 clases en models. <span class="fw-bold">- Completado</span></li>
+            <li>Un formulario para insertar datos a por cada model creado. <span class="fw-bold">- Completado</span></li>
+            <li>Un formulario para buscar algo en la BD.<span class="fw-bold">- Completado</span></li>
+        </ul>
+        <li>Readme que indique el orden en el que se prueban las cosas y/o donde están las funcionalidades.<span class="fw-bold">- Completado</span></li>
+    </ul>
+</div>
+</div>
+{% endblock %}

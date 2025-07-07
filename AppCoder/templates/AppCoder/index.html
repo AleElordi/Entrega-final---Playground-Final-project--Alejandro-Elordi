@@ -1,0 +1,119 @@
+{% extends 'AppCoder/padre.html'  %}
+{% load static %}
+
+{% block title %}Inicio - MotoStore{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 bg-light">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+
+<!-- Hero Section -->
+<div class="text-center mb-5">
+  <img src="https://scontent.faep14-2.fna.fbcdn.net/v/t39.30808-6/448151985_891301033043617_5945733779040633403_n.png?_nc_cat=108&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeE5yJ9qRvhcRnrrw98G-aksF3WKHaazTiAXdYodprNOIIuE0llz6i8n5uOGiBzinF8&_nc_ohc=b7ZAzbMQsjkQ7kNvwHUW--R&_nc_oc=AdnyYziaxXZ7ZqtFqmMdIPXQkdN_7Xvgnk8CNHhtn1zO_FEx9N5Y7QCZe7q6b-buDqo&_nc_zt=23&_nc_ht=scontent.faep14-2.fna&_nc_gid=F9ymcEHAMco202Mkzonlmw&oh=00_AfPpVDiAm4vkopuBNGgGiksBeisOcTyaiOSrzN_kJrUOLA&oe=6867C917"
+    class="img-fluid rounded shadow" alt="Motocicleta destacada">
+  <h2 class="mt-4">Bienvenido a MotoStore</h2>
+  <p class="lead">Las mejores motocicletas y repuestos al mejor precio</p>
+</div>
+
+<!-- Motos Destacadas -->
+<section id="motos" class="mb-5">
+  <h3 class="mb-4">Motocicletas destacadas</h3>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="https://www.divisionruedas.com.ar/webfiles/divisionruedas/productos/677/4_1000x1000.jpg"
+          class="card-img-top" alt="Honda Navi 110">
+        <div class="card-body">
+          <h5 class="card-title">Honda Navi 110</h5>
+          <p class="card-text">Ágil, liviana y económica. Ideal para moverte por la ciudad.</p>
+          <p class="fw-bold">$3.000 USD</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="https://yuhmak.vtexassets.com/arquivos/ids/209539-800-auto?v=638832691863500000&width=800&height=auto&aspect=true"
+          class="card-img-top" alt="Yamaha FZ-S">
+        <div class="card-body">
+          <h5 class="card-title">Yamaha FZ 3.0</h5>
+          <p class="card-text">Motor de 150cc, diseño deportivo y excelente rendimiento urbano.</p>
+          <p class="fw-bold">$4,500 USD</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="https://images.ctfassets.net/8zlbnewncp6f/3udo7vUv2KaGWbByxWyxNO/b5645af7915e027fad8ee2a4451f20f9/SUZUKI-GN-125-EURO3-3-Galgo-Colombia.jpg"
+          class="card-img-top" alt="Suzuki GN125">
+        <div class="card-body">
+          <h5 class="card-title">Suzuki GN125</h5>
+          <p class="card-text">La clásica urbana que nunca pasa de moda. Bajo consumo y fácil mantenimiento.</p>
+          <p class="fw-bold">$2.700 USD</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Repuestos Destacados -->
+<section id="repuestos" class="mb-5">
+  <h3 class="mb-4">Repuestos destacados</h3>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="https://acdn-us.mitiendanube.com/stores/002/111/179/products/31-e58ad69069e89aaa4d16641492579610-480-0.jpg"
+          class="card-img-top" alt="Escape deportivo">
+        <div class="card-body">
+          <h5 class="card-title">Escape Deportivo</h5>
+          <p class="fw-bold">$120 USD</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_637469-MLA73015455201_112023-O.webp"
+          class="card-img-top" alt="Disco de freno">
+        <div class="card-body">
+          <h5 class="card-title">Disco de Freno</h5>
+          <p class="fw-bold">$65 USD</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="https://formotos.com/wp-content/uploads/2023/07/IMG_7034-2-scaled.jpg.webp"
+          class="card-img-top" alt="Manillar reforzado">
+        <div class="card-body">
+          <h5 class="card-title">Manillar Reforzado</h5>
+          <p class="fw-bold">$45 USD</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_978622-MLU70689222178_072023-O.webp"
+          class="card-img-top" alt="Cubierta Pirelli">
+        <div class="card-body">
+          <h5 class="card-title">Cubierta Pirelli Diablo</h5>
+          <p class="fw-bold">$180 USD</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Final -->
+<div class="text-center py-5 bg-light rounded shadow-sm">
+  <h4>¿Buscás algo más?</h4>
+  <p class="mb-3">Contactanos o suscribite para recibir las mejores ofertas</p>
+    <a href="{% url 'suscriptores' %}" class="btn btn-primary">Suscribirme</a>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

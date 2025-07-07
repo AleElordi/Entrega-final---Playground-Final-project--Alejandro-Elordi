@@ -1,0 +1,7 @@
+py -m venv venv
+pip freeze
+venv\Scripts\activate
+py manage.py runserver
+
+Para BBDD
+py manage.py migrate
