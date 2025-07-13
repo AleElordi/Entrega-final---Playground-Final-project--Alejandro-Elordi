@@ -67,3 +67,8 @@ class RegistroUsuarioForm(forms.Form):
         if len(username) < 4:
             raise forms.ValidationError("El nombre de usuario debe tener al menos 4 caracteres.")
         return username
+    
+# Creo la clase de formulario para el inicio de sesión
+class LoginForm(forms.Form):
+    username = forms.CharField(label="Nombre de Usuario", max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput(attrs={'class': 'form-control'}))

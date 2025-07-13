@@ -1,0 +1,31 @@
+{% extends 'AppCoder/padre.html' %}
+{% block title %}Iniciar Sesión{% endblock %}
+{% block content %}
+<div class="container py-5 bg-light">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7 col-sm-10">
+            <h2 class="text-center mb-4">Iniciar Sesión</h2>
+            {% if mensaje %}
+                <div class="alert alert-info text-center">{{ mensaje }}</div>
+            {% endif %}
+            {% if usuario %}
+                <div class="text-center">
+                    <a href="{% url 'inicio' %}" class="btn btn-success">Ir al inicio</a>
+                </div>
+            {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="py-3 text-center">
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                    </div>
+                </form>
+                <div class="text-center mt-3">
+                    <span>¿No tienes usuario?</span>
+                    <a href="{% url 'registroUsuario' %}" class="btn btn-link">Registrate aquí</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

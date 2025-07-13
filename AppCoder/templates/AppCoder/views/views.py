@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 from ....models import  Suscriptor, Repuesto, Producto, Usuario, Articulos
-from ....forms import datosSuscriptor, RegistroUsuarioForm, ArticulosForm
+from ....forms import datosSuscriptor, RegistroUsuarioForm, ArticulosForm, LoginForm
 
 def inicio(request):
     return render(request, "AppCoder/index.html")
@@ -76,22 +77,64 @@ def articulos(request):
         'mensaje_error': mensaje_error,
     })
 
+from django.db import IntegrityError
+
 def registroUsuario(request):
     mensaje = None
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST, request.FILES)
         if form.is_valid():
             informacion = form.cleaned_data
-            usuario = Usuario(
-                username=informacion['username'],
-                password=informacion['password'],
-                email=informacion['email'],
-                avatar=informacion.get('avatar', None)  # Manejo de avatar opcional
-            )
-            mensaje = "¡Usuario registrado exitosamente!"
-            usuario.save()
-            return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+            # Normaliza email y username
+            email_normalizado = informacion['email'].strip().lower() # Normaliza el email
+            username_normalizado = informacion['username'].strip() # Normaliza el username
+            # Validar si el email ya existe
+            if Usuario.objects.filter(email__iexact=email_normalizado).exists():
+                mensaje = "El email ya está registrado. Por favor, usa otro."
+                return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+            # Validar si el username ya existe
+            if Usuario.objects.filter(username__iexact=username_normalizado).exists():
+                mensaje = "El nombre de usuario ya está registrado. Por favor, elige otro."
+                return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+            # Intentar crear el usuario
+            try:
+                usuario = Usuario(
+                    username=username_normalizado,
+                    password=informacion['password'],
+                    email=email_normalizado,
+                    avatar=informacion.get('avatar', None)
+                )
+                usuario.save()
+                mensaje = "¡Usuario registrado exitosamente!"
+                return render(request, "AppCoder/registroUsuario.html", {'form': RegistroUsuarioForm(), 'mensaje': mensaje})
+            # Intentar capturar errores de integridad
+            except IntegrityError:
+                mensaje = "El email ya está registrado. Por favor, usa otro."
+                return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+            # Capturar cualquier otro error inesperado
+            except Exception:
+                mensaje = "Ocurrió un error inesperado. Intenta con otros datos."
+                return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+        else:
+            mensaje = "Por favor, revisa los datos ingresados."
     else:
-        form = RegistroUsuarioForm() # Formulario vacío
-    
+        form = RegistroUsuarioForm()
     return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+
+def login_usuario(request):
+    mensaje = None
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                mensaje = f"¡Bienvenido, {username}!"
+                return render(request, "AppCoder/login.html", {"form": form, "mensaje": mensaje, "usuario": username})
+            else:
+                mensaje = "Usuario o contraseña incorrectos."
+    else:
+        form = LoginForm()
+    return render(request, "AppCoder/login.html", {"form": form, "mensaje": mensaje})

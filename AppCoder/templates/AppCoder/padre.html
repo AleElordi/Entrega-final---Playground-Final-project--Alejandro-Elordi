@@ -26,19 +26,35 @@
 <body>
 
         <!-- Navigation-->
-        <nav class="navbar navbar-light bg-light static-top">
-            <div class="container">
-                <a class="navbar-brand" href="{% url 'inicio' %}">MotoStore</a>
-                <div>
-                    <a class="btn btn-outline-primary mx-1" href="{% url 'inicio' %}">Inicio</a>
-                    <a class="btn btn-outline-primary mx-1" href="{% url 'buscador' %}">Productos</a>
-                    <a class="btn btn-outline-primary mx-1" href="{% url 'articulos' %}">Agregar articulos</a>
-                    <a class="btn btn-outline-primary mx-1" href="{% url 'suscriptores' %}">Suscriptores</a>
-                    <a class="btn btn-outline-primary mx-1" href="{% url 'datos' %}">Datos</a>
-                    <a class="btn btn-outline-primary mx-1" href="{% url 'registroUsuario' %}">Loguin</a>
+            <nav class="navbar navbar-light bg-light static-top">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'inicio' %}">MotoStore</a>
+                    <div class="d-flex align-items-center">
+                        <a class="btn btn-outline-primary mx-1" href="{% url 'inicio' %}">Inicio</a>
+                        <a class="btn btn-outline-primary mx-1" href="{% url 'buscador' %}">Productos</a>
+                        <a class="btn btn-outline-primary mx-1" href="{% url 'articulos' %}">Agregar articulos</a>
+                        <a class="btn btn-outline-primary mx-1" href="{% url 'suscriptores' %}">Suscriptores</a>
+                        <a class="btn btn-outline-primary mx-1" href="{% url 'datos' %}">Datos</a>
+                        <!-- Verifica si el usuario está autenticado -->
+                            {% if request.user.is_authenticated %}
+                                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger mx-1">Logout</button>
+                                </form>
+                                <span class="d-flex align-items-center ms-3">
+                                    <span class="me-2 fw-bold">{{ request.user.username }}</span>
+                                    {% if request.user.avatar %}
+                                        <img src="{{ request.user.avatar.url }}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
+                                    {% else %}
+                                        <img src="{% static 'AppCoder/img/default-avatar.png' %}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
+                                    {% endif %}
+                                </span>
+                            {% else %}
+                                <a class="btn btn-outline-primary mx-1" href="{% url 'login' %}">Login</a>
+                            {% endif %}
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
         <main>
         {% block content %}
         <!--Datos dinamicos de las distintas vistas-->

@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import path, reverse_lazy # Importa reverse_lazy para redirección después de logout
 from django.contrib import admin
-from AppCoder.templates.AppCoder.views.views import datos, resBusqueda, suscriptores, inicio, buscador, articulos
+from django.contrib.auth.views import LogoutView
+from AppCoder.templates.AppCoder.views.views import datos, resBusqueda, suscriptores, inicio, buscador, articulos, login_usuario
 from AppCoder.templates.AppCoder.views.usuarios import leerUsuarios, registroUsuario, eliminarUsuario, editarUsuario
 from AppCoder.templates.AppCoder.views.productosRepuestos import articulosListView, articulosDetailView, articulosCreateView, articulosUpdateView, articulosDeleteView
 
@@ -23,6 +24,9 @@ urlpatterns = [
     path('productosRepuestos/<int:pk>/', articulosDetailView.as_view(), name='productosRepuestos_detail'),
     path('productosRepuestos/create/', articulosCreateView.as_view(), name='productosRepuestos_create'),
     path('productosRepuestos/update/<int:pk>/', articulosUpdateView.as_view(), name='productosRepuestos_update'),
-    path('productosRepuestos/delete/<int:pk>/', articulosDeleteView.as_view(), name='productosRepuestos_delete')
+    path('productosRepuestos/delete/<int:pk>/', articulosDeleteView.as_view(), name='productosRepuestos_delete'),
     
+    # Rutas para el login de usuarios
+    path('login/', login_usuario, name='login'),
+path('logout/', LogoutView.as_view(next_page=reverse_lazy('inicio')), name='logout'),
 ]
