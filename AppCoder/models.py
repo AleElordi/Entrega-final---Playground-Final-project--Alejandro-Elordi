@@ -35,9 +35,13 @@ class Usuario(models.Model):
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)  # Campo opcional para avatar   
     
 class Articulos(models.Model):
+    TIPO_CHOICES = [
+        ('producto', 'Producto'),
+        ('repuesto', 'Repuesto'),
+    ]
     nombre = models.CharField(max_length=100)
     marca = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=50)  # Tipo de artículo (Producto o Repuesto)
+    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
     foto = models.TextField()
     descripcion = models.TextField()
     precio = models.IntegerField()

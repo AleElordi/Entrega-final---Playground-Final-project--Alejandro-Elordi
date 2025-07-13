@@ -1,5 +1,5 @@
 from django import forms
-from .models import Producto, Repuesto
+from .models import Producto, Repuesto, Articulos
 
 class datosSuscriptor(forms.Form):
     nombreCompleto = forms.CharField(max_length=100, label="Nombre Completo")
@@ -41,12 +41,12 @@ class RepuestoForm(forms.ModelForm):
 
 class ArticulosForm(forms.ModelForm):
     class Meta:
-        model = Producto  # Asumiendo que Articulos es un modelo similar a Producto
+        model = Articulos  # Asumiendo que Articulos es un modelo similar a Producto
         fields = '__all__'
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'marca': forms.TextInput(attrs={'class': 'form-control'}),
-            'tipo': forms.TextInput(attrs={'class': 'form-control'}),  # Campo adicional para tipo de artículo
+            'tipo': forms.Select(attrs={'class': 'form-select'}),
             'foto': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
             'precio': forms.NumberInput(attrs={'class': 'form-control'}),

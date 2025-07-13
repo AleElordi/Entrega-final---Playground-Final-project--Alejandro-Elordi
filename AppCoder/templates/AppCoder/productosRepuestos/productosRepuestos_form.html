@@ -1,52 +1,37 @@
-{% load static %}
+{% extends 'AppCoder/padre.html' %}
+{% block title %}
+    {% if object %}Editar Artículo{% else %}Agregar Artículo{% endif %}
+{% endblock %}
 
-{% block title %}Formuario - Productos y Repuestos{% endblock %}
 {% block content %}
-
 <div class="container py-5 bg-light">
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-10">
-
-            <h1 class="text-center mb-4">Agregar Productos y Repuestos</h1>
-
-            <!-- Formulario Producto -->
+            <h1 class="text-center mb-4">
+                {% if object %}Editar Artículo{% else %}Agregar Artículo{% endif %}
+            </h1>
             <div class="card shadow rounded border-0 mb-5">
                 <div class="card-body">
-                    <h2 class="text-center mb-4">Agregar productos</h2>
-
-                    {% if mensaje_producto %}
-                        <div class="alert alert-success">{{ mensaje_producto }}</div>
-                    {% endif %}
-
-                    <form method="POST" class="form-horizontal needs-validation" novalidate>
+                    <form method="post">
                         {% csrf_token %}
-                        {{ producto_form }}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger small">{{ field.errors }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
                         <div class="py-3">
-                            <input type="submit" name="producto_submit" class="btn btn-primary" value="Agregar Producto">
+                            <button type="submit" class="btn btn-primary">
+                                {% if object %}Guardar Cambios{% else %}Agregar Artículo{% endif %}
+                            </button>
+                            <a href="{% url 'productosRepuestos_list' %}" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </form>
                 </div>
             </div>
-
-            <!-- Formulario Repuestos -->
-            <div class="card shadow rounded border-0 mb-5">
-                <div class="card-body">
-                    <h2 class="text-center mb-4">Agregar Repuestos</h2>
-
-                    {% if mensaje_repuesto %}
-                        <div class="alert alert-success">{{ mensaje_repuesto }}</div>
-                    {% endif %}
-
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ repuesto_form }}
-                        <div class="py-3">
-                            <input type="submit" name="repuesto_submit" class="btn btn-primary" value="Agregar Repuesto">
-                        </div>
-                    </form>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
