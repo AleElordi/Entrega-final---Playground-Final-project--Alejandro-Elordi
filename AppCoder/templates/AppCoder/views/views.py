@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import  Suscriptor, Repuesto, Producto
-from .forms import datosSuscriptor, ProductoForm, RepuestoForm
+from ....models import  Suscriptor, Repuesto, Producto, Usuario, Articulos
+from ....forms import datosSuscriptor, ProductoForm, RepuestoForm, RegistroUsuarioForm
 
 def inicio(request):
     return render(request, "AppCoder/index.html")
@@ -82,3 +82,23 @@ def articulos(request):
         'mensaje_producto': mensaje_producto,
         'mensaje_repuesto': mensaje_repuesto,
     })
+
+def registroUsuario(request):
+    mensaje = None
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST, request.FILES)
+        if form.is_valid():
+            informacion = form.cleaned_data
+            usuario = Usuario(
+                username=informacion['username'],
+                password=informacion['password'],
+                email=informacion['email'],
+                avatar=informacion.get('avatar', None)  # Manejo de avatar opcional
+            )
+            mensaje = "¡Usuario registrado exitosamente!"
+            usuario.save()
+            return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+    else:
+        form = RegistroUsuarioForm() # Formulario vacío
+    
+    return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})

@@ -1,0 +1,59 @@
+{% load static %}
+{% block title %}Detalles - Productos y Repuestos{% endblock %}
+{% block content %}
+
+
+
+{% block content %}
+<div class="container py-5 bg-light">
+    <div class="row justify-content-center">
+        {% if object.tipo == 'Producto' %}
+        <!-- Si es un producto, muestra los detalles del producto -->
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <h2 class="text-center mb-4">{{ object.nombre }}</h2>
+            <div class="card shadow rounded">
+                <img src="{{ object.foto }}" class="card-img-top" alt="{{ object.nombre }}">
+                <div class="card-body">
+                    <p class="card-text">{{ object.descripcion }}</p>
+                    <p class="card-text"><strong>Marca:</strong> {{ object.marca }}</p>
+                    <p class="card-text"><strong>Precio:</strong> ${{ object.precio }}</p>
+                    <p class="card-text"><strong>Stock:</strong> {{ object.stock }}</p>
+                </div>
+            </div>
+            <div class="mt-3">
+                <a href="{% url 'productosRepuestos' %}" class="btn btn-secondary">Volver a la lista</a>
+            </div>
+        </div>
+        {% elif object.tipo == 'Repuesto' %}
+        <!-- Si es un repuesto, muestra los detalles del repuesto -->
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <h2 class="text-center mb-4">{{ object.nombre }}</h2>
+            <div class="card shadow rounded">
+                <img src="{{ object.foto }}" class="card-img-top" alt="{{ object.nombre }}">
+                <div class="card-body">
+                    <p class="card-text">{{ object.descripcion }}</p>
+                    <p class="card-text"><strong>Marca:</strong> {{ object.marca }}</p>
+                    <p class="card-text"><strong>Precio:</strong> ${{ object.precio }}</p>
+                    <p class="card-text"><strong>Stock:</strong> {{ object.stock }}</p>
+                </div>
+            </div>
+            <div class="mt-3">
+                <a href="{% url 'productosRepuestos' %}" class="btn btn-secondary">Volver a la lista</a>
+            </div>
+        </div>
+        {% else %}
+        <!-- Si no es ni un producto ni un repuesto, muestra un mensaje de error -->
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <h2 class="text-center mb-4">Error</h2>
+            <div class="card shadow rounded">
+                <div class="card-body">
+                    <p>No se pudo encontrar el articuo solicitado.</p>
+                    <div class="mt-3">
+                        <a href="{% url 'productosRepuestos' %}" class="btn btn-secondary">Volver a la lista</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}   
+</div>
+{% endblock %}

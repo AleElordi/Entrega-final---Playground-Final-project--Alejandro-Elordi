@@ -38,3 +38,31 @@ class RepuestoForm(forms.ModelForm):
             'precio': forms.NumberInput(attrs={'class': 'form-control'}),
             'stock': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+class ArticulosForm(forms.ModelForm):
+    class Meta:
+        model = Producto  # Asumiendo que Articulos es un modelo similar a Producto
+        fields = '__all__'
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'marca': forms.TextInput(attrs={'class': 'form-control'}),
+            'foto': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+            'stock': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+
+# Creo la clase de formulario para el registro de usuarios con avatar propio
+class RegistroUsuarioForm(forms.Form):
+    username = forms.CharField(max_length=150, label="Nombre de Usuario")
+    password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
+    email = forms.EmailField(label="Email")
+    avatar = forms.ImageField(required=False, label="Avatar")
+
+    # Validación personalizada para el campo username
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if len(username) < 4:
+            raise forms.ValidationError("El nombre de usuario debe tener al menos 4 caracteres.")
+        return username

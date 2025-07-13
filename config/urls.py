@@ -1,7 +1,8 @@
 from django.urls import path
 from django.contrib import admin
-from AppCoder.views import datos, resBusqueda, suscriptores, inicio, buscador, articulos
-
+from AppCoder.templates.AppCoder.views.views import datos, resBusqueda, suscriptores, inicio, buscador, articulos
+from AppCoder.templates.AppCoder.views.usuarios import leerUsuarios, registroUsuario, eliminarUsuario, editarUsuario
+from AppCoder.templates.AppCoder.views.productosRepuestos import articulosListView, articulosDetailView, articulosCreateView, articulosUpdateView, articulosDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,4 +12,17 @@ urlpatterns = [
     path('buscador/', buscador, name='buscador'),
     path('resBuscador/', resBusqueda, name='resBusqueda'),
     path('articulos/', articulos, name='articulos'),
+    # Rutas para manejar usuarios
+    path('usuarios/', leerUsuarios, name='usuarios'),
+    path('registroUsuario/', registroUsuario, name='registroUsuario'),
+    path('eliminarUsuario/<int:id>/', eliminarUsuario, name='eliminarUsuario'),
+    path('editarUsuario/<int:id>/', editarUsuario, name='editarUsuario'),
+
+    # Rutas para manejar productos y repuestos desde las vistas
+    path('productosRepuestos/', articulosListView.as_view(), name='productosRepuestos_list'),
+    path('productosRepuestos/<int:pk>/', articulosDetailView.as_view(), name='productosRepuestos_detail'),
+    path('productosRepuestos/create/', articulosCreateView.as_view(), name='productosRepuestos_create'),
+    path('productosRepuestos/update/<int:pk>/', articulosUpdateView.as_view(), name='productosRepuestos_update'),
+    path('productosRepuestos/delete/<int:pk>/', articulosDeleteView.as_view(), name='productosRepuestos_delete')
+    
 ]

@@ -28,3 +28,18 @@ class Datos(models.Model):
     telefono = models.CharField(max_length=15, blank=True, null=True)
     direccion = models.TextField(blank=True, null=True)
 
+class Usuario(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    password = models.CharField(max_length=128)  # Almacenar el hash de la contraseña
+    email = models.EmailField(unique=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)  # Campo opcional para avatar   
+    
+class Articulos(models.Model):
+    nombre = models.CharField(max_length=100)
+    marca = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=50)  # Tipo de artículo (Producto o Repuesto)
+    foto = models.TextField()
+    descripcion = models.TextField()
+    precio = models.IntegerField()
+    stock = models.IntegerField()
+
