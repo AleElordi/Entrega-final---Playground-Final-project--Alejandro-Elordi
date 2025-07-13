@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from ....models import  Suscriptor, Repuesto, Producto, Usuario, Articulos
-from ....forms import datosSuscriptor, ProductoForm, RepuestoForm, RegistroUsuarioForm
+from ....forms import datosSuscriptor, ProductoForm, RepuestoForm, RegistroUsuarioForm, ArticulosForm
 
 def inicio(request):
     return render(request, "AppCoder/index.html")
@@ -36,9 +36,11 @@ def suscriptores(request):
 def buscador(request):
     productos = Producto.objects.all()
     repuestos = Repuesto.objects.all()
+    articulos = Articulos.objects.all()  # Si necesitas manejar artículos en general
     contexto = {
         "productos": productos,
         "repuestos": repuestos,
+        "articulos": articulos,
     }
     return render(request, "AppCoder/buscadores/buscador.html", contexto)
 
@@ -46,16 +48,19 @@ def resBusqueda(request):
     marca = request.GET.get("marca", "")
     productos = Producto.objects.filter(marca__icontains=marca)
     repuestos = Repuesto.objects.filter(marca__icontains=marca)
+    articulo = Articulos.objects.filter(marca__icontains=marca)
     contexto = {
         "marca": marca,
         "productos": productos,
         "repuestos": repuestos,
+        "articulos": articulo,  
     }
     return render(request, "AppCoder/buscadores/resBusqueda.html", contexto)
 
 def articulos(request):
     mensaje_producto = None
     mensaje_repuesto = None
+    mensaje_articulo = None
 
     if request.method == 'POST':
         if 'producto_submit' in request.POST:
@@ -72,13 +77,22 @@ def articulos(request):
                 repuesto_form.save()
                 mensaje_repuesto = "¡Repuesto agregado exitosamente!"
                 repuesto_form = RepuestoForm()
+        elif 'articulo_submit' in request.POST:
+            articulo_form = ArticulosForm(request.POST)
+            if articulo_form.is_valid():
+                articulo_form.save()
+                mensaje_articulo = "¡Artículo agregado exitosamente!"
+                articulo_form = ArticulosForm()
     else:
         producto_form = ProductoForm()
         repuesto_form = RepuestoForm()
+        articulo_form = ArticulosForm()
 
     return render(request, "AppCoder/articulos.html", {
         'producto_form': producto_form,
         'repuesto_form': repuesto_form,
+        'articulo_form': articulo_form,
+        'mensaje_articulo': mensaje_articulo,
         'mensaje_producto': mensaje_producto,
         'mensaje_repuesto': mensaje_repuesto,
     })
