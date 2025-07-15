@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class Producto(models.Model):
@@ -28,11 +29,8 @@ class Datos(models.Model):
     telefono = models.CharField(max_length=15, blank=True, null=True)
     direccion = models.TextField(blank=True, null=True)
 
-class Usuario(models.Model):
-    username = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=128)  # Almacenar el hash de la contraseña
-    email = models.EmailField(unique=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)  # Campo opcional para avatar   
+class Usuario(AbstractUser):
+    avatar = models.ImageField(upload_to='avatares/', null=True, blank=True)  # Campo opcional para avatar   
     
 class Articulos(models.Model):
     TIPO_CHOICES = [

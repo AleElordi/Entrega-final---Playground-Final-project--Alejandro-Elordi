@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.db import IntegrityError
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from ....models import  Suscriptor, Repuesto, Producto, Usuario, Articulos
 from ....forms import datosSuscriptor, RegistroUsuarioForm, ArticulosForm, LoginForm
 
@@ -77,8 +79,6 @@ def articulos(request):
         'mensaje_error': mensaje_error,
     })
 
-from django.db import IntegrityError
-
 def registroUsuario(request):
     mensaje = None
     if request.method == 'POST':
@@ -100,10 +100,10 @@ def registroUsuario(request):
             try:
                 usuario = Usuario(
                     username=username_normalizado,
-                    password=informacion['password'],
                     email=email_normalizado,
                     avatar=informacion.get('avatar', None)
                 )
+                usuario.set_password(informacion['password'])  # Hashea la contraseña correctamente
                 usuario.save()
                 mensaje = "¡Usuario registrado exitosamente!"
                 return render(request, "AppCoder/registroUsuario.html", {'form': RegistroUsuarioForm(), 'mensaje': mensaje})
@@ -121,20 +121,34 @@ def registroUsuario(request):
         form = RegistroUsuarioForm()
     return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
 
+# Vista para manejar el login de usuarios
 def login_usuario(request):
     mensaje = None
-    if request.method == "POST":
+    if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
+            username = form.cleaned_data['username'].strip()
+            password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
-            if user is not None:
+            if user is not None and user.is_active:
                 login(request, user)
-                mensaje = f"¡Bienvenido, {username}!"
-                return render(request, "AppCoder/login.html", {"form": form, "mensaje": mensaje, "usuario": username})
+                return redirect('inicio')
             else:
                 mensaje = "Usuario o contraseña incorrectos."
     else:
         form = LoginForm()
-    return render(request, "AppCoder/login.html", {"form": form, "mensaje": mensaje})
+    return render(request, "AppCoder/login.html", {'form': form, 'mensaje': mensaje})
+
+# Vista para que los usuarios editen sus propios datos
+@login_required
+def mis_datos(request):
+    usuario = request.user
+    mensaje = None
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            form.save()
+            mensaje = "¡Datos actualizados exitosamente!"
+    else:
+        form = RegistroUsuarioForm(instance=usuario)
+    return render(request, "AppCoder/mis_datos.html", {'form': form, 'mensaje': mensaje})

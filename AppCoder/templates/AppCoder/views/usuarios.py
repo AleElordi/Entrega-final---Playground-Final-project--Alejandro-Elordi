@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, get_object_or_404, redirect # Importar funciones de Django que permiten renderizar templates y manejar objetos
 from AppCoder.models import Usuario
 from AppCoder.forms import RegistroUsuarioForm
 
@@ -12,26 +13,43 @@ def leerUsuarios(request):
     return render(request, "AppCoder/usuarios.html", contexto)
 
 # Vista para registrar un nuevo usuario
-# Esta vista se encarga de mostrar el formulario de registro y procesar los datos enviados por
 def registroUsuario(request):
     mensaje = None
-    if request.method == 'POST': # Verifico si el método de la petición es POST
-        # Si es así, creo una instancia del formulario con los datos enviados
+    if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST, request.FILES)
         if form.is_valid():
             informacion = form.cleaned_data
-            usuario = Usuario(
-                username=informacion['username'],
-                password=informacion['password'],
-                email=informacion['email'],
-                avatar=informacion.get('avatar', None)  # Manejo de avatar opcional
-            )
-            mensaje = "¡Usuario registrado exitosamente!"
-            usuario.save()
-            return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+            email_normalizado = informacion['email'].strip().lower()
+            username_normalizado = informacion['username'].strip()
+            # Validar si el email ya existe
+            if Usuario.objects.filter(email__iexact=email_normalizado).exists():
+                mensaje = "El email ya está registrado. Por favor, usa otro."
+                return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+            # Validar si el username ya existe
+            if Usuario.objects.filter(username__iexact=username_normalizado).exists():
+                mensaje = "El nombre de usuario ya está registrado. Por favor, elige otro."
+                return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+            # Crear el usuario y hashear la contraseña
+            try:
+                usuario = Usuario(
+                    username=username_normalizado,
+                    email=email_normalizado,
+                    avatar=informacion.get('avatar', None)
+                )
+                usuario.set_password(informacion['password'])  # Hashea la contraseña
+                usuario.save()
+                mensaje = "¡Usuario registrado exitosamente!"
+                return render(request, "AppCoder/registroUsuario.html", {'form': RegistroUsuarioForm(), 'mensaje': mensaje})
+            except IntegrityError:
+                mensaje = "El email ya está registrado. Por favor, usa otro."
+                return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+            except Exception:
+                mensaje = "Ocurrió un error inesperado. Intenta con otros datos."
+                return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
+        else:
+            mensaje = "Por favor, revisa los datos ingresados."
     else:
-        form = RegistroUsuarioForm() # Formulario vacío
-    
+        form = RegistroUsuarioForm()
     return render(request, "AppCoder/registroUsuario.html", {'form': form, 'mensaje': mensaje})
 
 
@@ -41,7 +59,6 @@ def eliminarUsuario(request, id):
     usuario = Usuario.objects.get(id=id)  # Obtengo el usuario por su ID
     usuario.delete()  # Elimino el usuario de la base de datos
     return render(request, "AppCoder/usuarios.html", {"mensaje": "Usuario eliminado exitosamente."})
-
 
 
 def editarUsuario(request, id):
@@ -69,3 +86,47 @@ def editarUsuario(request, id):
             )  # Formulario con los datos del usuario
     
     return render(request, "AppCoder/editarUsuario.html", {'form': form, 'usuario': usuario.id, 'mensaje': mensaje})
+
+
+# Solo permite acceso a superusuarios (admin)
+def admin_required(user):
+    return user.is_superuser
+
+# Decorador para restringir el acceso a la vista de usuarios
+# Solo los usuarios que cumplen con el admin_required pueden acceder a esta vista
+@user_passes_test(admin_required)
+def leerUsuarios(request):
+    usuarios = Usuario.objects.all()
+    contexto = {
+        "usuarios": usuarios
+    }
+    return render(request, "AppCoder/usuarios.html", contexto)
+
+# Decoradores para restringir el acceso a las vistas de edición y eliminación de usuarios
+# Solo los usuarios que cumplen con el admin_required pueden acceder a estas vistas
+@user_passes_test(admin_required)
+def eliminarUsuario(request, id):
+    usuario = get_object_or_404(Usuario, id=id)
+    if request.method == "POST":
+        usuario.delete()
+        return redirect('usuarios_admin')
+    return render(request, "AppCoder/eliminarUsuario.html", {"usuario": usuario})
+
+# Decorador para restringir el acceso a la vista de edición de usuarios
+# Solo los usuarios que cumplen con el admin_required pueden acceder a esta vista
+@user_passes_test(admin_required)
+def editarUsuario(request, id):
+    mensaje = None
+    usuario = get_object_or_404(Usuario, id=id)
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            try:
+                form.save()
+                mensaje = "¡Usuario editado exitosamente!"
+                return redirect('usuarios_admin')
+            except IntegrityError:
+                mensaje = "El email ya está registrado. Por favor, usa otro."
+    else:
+        form = RegistroUsuarioForm(instance=usuario)
+    return render(request, "AppCoder/editarUsuario.html", {'form': form, 'usuario': usuario, 'mensaje': mensaje})

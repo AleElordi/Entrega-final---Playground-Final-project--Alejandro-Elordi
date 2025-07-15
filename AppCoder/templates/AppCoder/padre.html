@@ -36,22 +36,32 @@
                         <a class="btn btn-outline-primary mx-1" href="{% url 'suscriptores' %}">Suscriptores</a>
                         <a class="btn btn-outline-primary mx-1" href="{% url 'datos' %}">Datos</a>
                         <!-- Verifica si el usuario está autenticado -->
-                            {% if request.user.is_authenticated %}
-                                <form method="post" action="{% url 'logout' %}" class="d-inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-outline-danger mx-1">Logout</button>
-                                </form>
-                                <span class="d-flex align-items-center ms-3">
-                                    <span class="me-2 fw-bold">{{ request.user.username }}</span>
-                                    {% if request.user.avatar %}
-                                        <img src="{{ request.user.avatar.url }}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
-                                    {% else %}
-                                        <img src="{% static 'AppCoder/img/default-avatar.png' %}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
-                                    {% endif %}
-                                </span>
-                            {% else %}
-                                <a class="btn btn-outline-primary mx-1" href="{% url 'login' %}">Login</a>
-                            {% endif %}
+                        {% if request.user.is_authenticated %}
+                            <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger mx-1">Logout</button>
+                            </form>
+
+                            <!-- Botones para productos y repuestos -->
+                            <a class="btn btn-outline-success mx-1" href="{% url 'productosRepuestos_list' %}">Ver Productos y Repuestos</a>
+                        {% else %}
+                            <a class="btn btn-outline-primary mx-1" href="{% url 'login' %}">Login</a>
+                        {% endif %}
+                        {% if request.user.is_authenticated and request.user.is_superuser %}
+                            <a class="btn btn-outline-dark mx-1" href="{% url 'usuarios_admin' %}">Administrar Usuarios</a>
+                        {% endif %}
+                        {% if request.user.is_authenticated %}
+                            <a class="btn btn-outline-info mx-1" href="{% url 'mis_datos' %}">Mis datos</a>
+                        {% endif %}
+                        <!-- Muestra el nombre de usuario y avatar si está autenticado -->
+                            <span class="d-flex align-items-center ms-3">
+                                <span class="me-2 fw-bold">{{ request.user.username }}</span>
+                                {% if request.user.avatar %}
+                                    <img src="{{ request.user.avatar.url }}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
+                                {% else %}
+                                    <img src="{% static 'AppCoder/img/default-avatar.png' %}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
+                                {% endif %}
+                            </span>
                     </div>
                 </div>
             </nav>
