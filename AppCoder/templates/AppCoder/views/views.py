@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from ....models import  Suscriptor, Repuesto, Producto, Usuario, Articulos
 from ....forms import datosSuscriptor, RegistroUsuarioForm, ArticulosForm, LoginForm
+from django.contrib.auth.forms import PasswordChangeForm # Importa PasswordChangeForm para cambiar la contraseña
+
 
 def inicio(request):
     return render(request, "AppCoder/index.html")
@@ -152,3 +154,20 @@ def mis_datos(request):
     else:
         form = RegistroUsuarioForm(instance=usuario)
     return render(request, "AppCoder/mis_datos.html", {'form': form, 'mensaje': mensaje})
+
+# Vista para cambiar la contraseña del usuario autenticado
+@login_required
+def cambiar_password(request):
+    mensaje = None
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()  # Esto usa set_password internamente
+            update_session_auth_hash(request, user)  # Mantiene la sesión activa
+            mensaje = "¡Contraseña cambiada exitosamente!"
+            form = PasswordChangeForm(request.user)  # Limpia el formulario
+        else:
+            mensaje = "Por favor, corrige los errores abajo."
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, "AppCoder/cambiar_password.html", {'form': form, 'mensaje': mensaje})

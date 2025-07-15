@@ -52,8 +52,7 @@
                         {% endif %}
                         {% if request.user.is_authenticated %}
                             <a class="btn btn-outline-info mx-1" href="{% url 'mis_datos' %}">Mis datos</a>
-                        {% endif %}
-                        <!-- Muestra el nombre de usuario y avatar si está autenticado -->
+                            <!-- Muestra el nombre de usuario y avatar si está autenticado -->
                             <span class="d-flex align-items-center ms-3">
                                 <span class="me-2 fw-bold">{{ request.user.username }}</span>
                                 {% if request.user.avatar %}
@@ -62,6 +61,7 @@
                                     <img src="{% static 'AppCoder/img/default-avatar.png' %}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
                                 {% endif %}
                             </span>
+                        {% endif %}
                     </div>
                 </div>
             </nav>

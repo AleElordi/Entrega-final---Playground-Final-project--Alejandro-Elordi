@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -45,3 +47,7 @@ class Articulos(models.Model):
     precio = models.IntegerField()
     stock = models.IntegerField()
 
+@receiver(post_delete, sender=Usuario)
+def eliminar_avatar_usuario(sender, instance, **kwargs):
+    if instance.avatar:
+        instance.avatar.delete(False)
