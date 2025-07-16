@@ -1,8 +1,9 @@
 {% extends 'AppCoder/padre.html' %}
 {% block title %}Agregar Artículos{% endblock %}
+
+
+
 {% block content %}
-
-
 <div class="container py-5 bg-light">
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-10">
@@ -13,38 +14,19 @@
                 <!-- Formulario Producto -->
                 <div class="card shadow rounded border-0 mb-5">
                     <div class="card-body">
-                        <h2 class="text-center mb-4">Agregar productos</h2>
-                        {% if mensaje_producto %}
-                            <div class="alert alert-success">{{ mensaje_producto }}</div>
+                        {% if mensaje_exito %}
+                            <div class="alert alert-success">{{ mensaje_exito }}</div>
                         {% endif %}
-
+                        {% if mensaje_error %}
+                            <div class="alert alert-danger">{{ mensaje_error }}</div>
+                        {% endif %}
                         <form method="POST">
                             {% csrf_token %}
-                            {{ producto_form.as_table }}
+                            {{ articulo_form.as_table }}
                             <div class="py-3">
                                 <input type="submit" name="producto_submit" class="btn btn-primary" value="Agregar Producto">
                             </div>
                         </form>
                     </div>
                 </div>
-
-                <!-- Formulario Repuestos -->
-
-                <div class="card shadow rounded border-0 mb-5">
-                    <div class="card-body">
-                        <h2 class="text-center mb-4">Agregar Repuestos</h2>
-                        {% if mensaje_repuesto %}
-                            <div class="alert alert-success">{{ mensaje_repuesto }}</div>
-                        {% endif %}
-
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ repuesto_form.as_table }}
-                        <div class="py-3">
-                            <input type="submit" name="repuesto_submit" class="btn btn-primary" value="Agregar Repuesto">
-                        </div>
-                    </form>
-                    </div>
-                </div>
-
-{% endblock %}
+{% endblock %}  

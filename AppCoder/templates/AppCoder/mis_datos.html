@@ -1,0 +1,39 @@
+{% extends 'AppCoder/padre.html' %}
+{% block title %}Mis Datos{% endblock %}
+{% block content %}
+<div class="container py-5 bg-light">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Editar mis datos</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% if field.name != 'password' %}
+                                <div class="mb-3">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-danger">{{ field.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="{% url 'cambiar_password' %}" class="btn btn-warning mt-3">Cambiar contraseña</a>
+                            <button type="submit" class="btn btn-success">Guardar cambios</button>
+                            <a href="{% url 'inicio' %}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                    {% if mensaje %}
+                        <div class="alert alert-info mt-3 text-center">{{ mensaje }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

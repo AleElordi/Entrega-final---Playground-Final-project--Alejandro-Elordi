@@ -1,13 +1,13 @@
 {% extends 'AppCoder/buscadores/buscador.html' %}
 
 {% block resultados %}
-    <h3>Resultados para "{{ marca }}"</h3>
+    <h3>Resultados para "{{ marca }}"!!!!!</h3>
 
     <h4>Productos</h4>
-    {% if productos %}
+    {% if articulo.tipo == "producto" %}
         <ul>
-            {% for producto in productos %}
-                <li>{{ producto.nombre }} - {{ producto.marca }} - {{ producto.precio }} - {{ repuesto.foto }}</li>
+            {% for articulo in articulos %}
+                <li>{{ articulo.nombre }} - {{ articulo.marca }} - {{ articulo.precio }} - {{ articulo.foto }}</li>
             {% endfor %}
         </ul>
     {% else %}
@@ -15,13 +15,14 @@
     {% endif %}
 
     <h4>Repuestos</h4>
-    {% if repuestos %}
+    {% if articulo.tipo == "repuesto" %}
         <ul>
-            {% for repuesto in repuestos %}
-                <li>{{ repuesto.nombre }} - {{ repuesto.marca }} - {{ repuesto.precio }} - {{ repuesto.foto }}</li>
+            {% for articulo in articulos %}
+                <li>{{ articulo.nombre }} - {{ articulo.marca }} - {{ articulo.precio }} - {{ articulo.foto }}</li>
             {% endfor %}
         </ul>
     {% else %}
         <p>No se encontraron repuestos.</p>
     {% endif %}
+    
 {% endblock %}

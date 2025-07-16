@@ -1,0 +1,38 @@
+{% extends 'AppCoder/padre.html' %}
+{% block title %}
+    {% if object %}Editar Artículo{% else %}Agregar Artículo{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 bg-light">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <h1 class="text-center mb-4">
+                {% if object %}Editar Artículo{% else %}Agregar Artículo{% endif %}
+            </h1>
+            <div class="card shadow rounded border-0 mb-5">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger small">{{ field.errors }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <div class="py-3">
+                            <button type="submit" class="btn btn-primary">
+                                {% if object %}Guardar Cambios{% else %}Agregar Artículo{% endif %}
+                            </button>
+                            <a href="{% url 'productosRepuestos_list' %}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

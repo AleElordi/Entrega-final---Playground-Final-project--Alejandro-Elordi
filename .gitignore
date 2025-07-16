@@ -1,2 +1,37 @@
+
+
+#  Dependencias
 venv/
 __pycache__/
+node_modules/
+.env
+.venv
+
+# DDBB
+db.sqlite3
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema operativo
+.DS_Store
+
+# Salidas de compilación
+dist/
+build/
+
+# Archivos temporales
+.tmp/
+.temp/
+*.tmp
+
+# Otros
+.idea/
+.vscode/
+coverage/
+*__pycache__*
+/media

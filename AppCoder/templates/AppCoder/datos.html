@@ -5,39 +5,99 @@
 
 {% block content %}
 <div class="container my-5">
-<h2 class="mb-4">Consigna y datos del proyecto</h2>
 <div class="card-custom">
-    <h3>Consigna</h3>
-    <p>
-        Crea una web en Django utilizando Herencia de plantillas, con un modelo de por lo menos 3 clases, 
-        un formulario para ingresar datos a las 3 clases y un formulario para buscar algo en la BD, 
-        no hace falta que sea sobre las tres clases, con realizar búsqueda sobre una alcanzará.
-    </p>
-    <p>Te sugerimos que hagas una web estilo blog para ir preparando en la entrega final.</p>
+<div class="container my-5">
+    <h1 class="mb-4">Entrega final - Playground Final project</h1>
+    <div class="card mb-4 shadow-sm">
+        <div class="card mb-4 shadow-sm">
+    <div class="card-body mb-4">
+        <h2 class="mb-4">Mis datos</h2>
+        <div class="row align-items-center">
+            <div class="col-md-3 text-center">
+                <!-- Si tienes avatar, pon la ruta aquí -->
+                <img src="https://avatars.githubusercontent.com/u/81270688?v=4" alt="Avatar" class="img-fluid rounded-circle mb-3" style="width:120px; height:120px; object-fit:cover;">
+            </div>
+                <div class="col-md-9">
+                    <h4 class="mb-2">Matias Elordi</h4>
+                    <p class="mb-1"><strong>Email:</strong> amelordi@gmail.com</p>
+                    <p class="mb-1"><strong>Ciudad:</strong> Buenos Aires, Argentina</p>
+                    <p class="mb-1"><strong>Biografía:</strong> Tema lider IT - Desarrollador FullStack apasionado por la tecnología. Estudiante en Coderhouse.</p>
+                    <p class="mb-1"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/alejandro-elordi-5323b444/" target="_blank">Alejandro Elordi</a></p>
+                    <p class="mb-1"><strong>GitHub:</strong> <a href="https://github.com/AleElordi" target="_blank">AleElordi</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <span>Resuelto: Exiten 3 formularios de ingreso de datos para "suscriptores", "Productos" y "Repuestos" a la base de datos</span>
+
+
+
+        <div class="card-body">
+            <h3 class="mt-2">Consigna</h3>
+            <p>En forma individual, crearás una aplicación web estilo blog programada en Python en Django. Esta web tendrá admin, perfiles, registro, páginas y formularios.</p>
+            <ul>
+                <li>Acceso visible a la vista de "Acerca de mí" en <code>about/ = "Datos"</code>.</li>
+                <li>Acceso visible a la vista de blogs en <code>pages/ = "Productos"</code>.</li>
+                <li>Pantalla de páginas con opción “Leer más” para navegar al detalle (<code>pages/</code>).</li>
+                <li>Si no existe ninguna página mostrar un "No hay páginas aún".</li>
+                <li>Solo usuarios logueados pueden editar o borrar páginas.</li>
+            </ul>
+            <h5 class="mt-4">Piezas sugeridas</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li>NavBar</li>
+                        <li>Home</li>
+                        <li>About</li>
+                        <li>Pages</li>
+                        <li>Login</li>
+                        <li>Signup</li>
+                        <li>Messages</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li>Profile</li>
+                        <li>Logout</li>
+                        <li>Get pages</li>
+                        <li>Get page</li>
+                        <li>Create page</li>
+                        <li>Update Page</li>
+                        <li>Delete page</li>
+                        <li>Get profile</li>
+                        <li>Update profile</li>
+                    </ul>
+                </div>
+            </div>
+            <h5 class="mt-4">Requisitos base</h5>
+            <ul>
+                <li>Entrega individual en GitHub</li>
+                <li>Readme como la entrega 3</li>
+                <li>Video de máximo 10 min mostrando la página y funcionalidades</li>
+                <li>No agregar la Base de datos (<code>db.sqlite3</code>) en la entrega. Debe estar en el <code>.gitignore</code></li>
+                <li>Uso de herencia de templates y NavBar en el template base</li>
+                <li>Existencia de <code>.gitignore</code> con <code>pycache</code>, <code>db.sqlite3</code>, <code>media</code></li>
+                <li>Archivo <code>requirements.txt</code> actualizado</li>
+                <li>Adaptar templates y vistas para manejo de imágenes en formularios</li>
+                <li>Uso de mínimo 2 clases basadas en vista (CBV)</li>
+                <li>Uso de mínimo un mixin en una CBV y un decorador en una view común</li>
+                <li>Vista de inicio/home</li>
+                <li>Vista "Acerca de mí"/"About"</li>
+                <li>Modelo principal con mínimo: 2 CharField, 1 texto enriquecido (ckeditor), 1 imagen, 1 fecha</li>
+                <li>Listado de objetos del modelo principal mostrando algunos datos</li>
+                <li>Mensaje si no hay objetos creados o no se encuentra ninguno en el buscador</li>
+                <li>Detalle, creación, edición y borrado de objetos desde el listado</li>
+                <li>Registrar todos los modelos en el admin</li>
+                <li>App para manejo de usuarios/autenticación (<code>accounts</code>, <code>cuentas</code>, etc)</li>
+                <li>Vistas para login, logout y registro (username, email, password)</li>
+                <li>Vista de perfil mostrando: nombre, apellido, email, avatar, biografía/link/fecha de cumpleaños/etc.</li>
+                <li>Acceso a edición de perfil y cambio de password</li>
+                <li>App de mensajería para comunicación entre usuarios</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
-<div class="card-custom">
-    <h3>Objetivos</h3>
-    <ul>
-        <li>Desarrollar tu primer WEB en Django utilizando patrón MVT <span class="fw-bold">- Completado</span></li>
-    </ul>
-</div>
-
-<div class="card-custom">
-    <h3>Requisitos</h3>
-    <ul>
-        <li>Link de GitHub con el proyecto totalmente subido a la plataforma.</li>
-        <li>Proyecto Web Django con patrón MVT que incluya:</li>
-        <ul>
-            <li>Herencia de HTML. <span class="fw-bold">- Completado</span> </li>
-            <li>Por lo menos 3 clases en models. <span class="fw-bold">- Completado</span></li>
-            <li>Un formulario para insertar datos a por cada model creado. <span class="fw-bold">- Completado</span></li>
-            <li>Un formulario para buscar algo en la BD.<span class="fw-bold">- Completado</span></li>
-        </ul>
-        <li>Readme que indique el orden en el que se prueban las cosas y/o donde están las funcionalidades.<span class="fw-bold">- Completado</span></li>
-    </ul>
 </div>
 </div>
 {% endblock %}

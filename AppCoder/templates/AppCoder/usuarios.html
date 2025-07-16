@@ -1,0 +1,37 @@
+{% extends 'AppCoder/padre.html' %}
+{% load static %}
+{% block title %}Administrar Usuarios{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4">Usuarios registrados</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Avatar</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                    {% if usuario.avatar %}
+                        <img src="{{ usuario.avatar.url }}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
+                    {% else %}
+                        <img src="{% static 'AppCoder/img/default-avatar.png' %}" alt="avatar" style="width:32px; height:32px; object-fit:cover; border-radius:50%;">
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'editar_usuario_admin' usuario.id %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'eliminar_usuario_admin' usuario.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
