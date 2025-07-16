@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -39,9 +39,9 @@ def suscriptores(request):
     return render(request, "AppCoder/suscriptores.html", {'form': form, 'mensaje_exito': mensaje_exito})
 
 def buscador(request):
-    articulo = Articulos.objects.all() 
+    articulos = Articulos.objects.all()
     contexto = {
-        "articulos": articulo,
+        "articulos": articulos,
     }
     return render(request, "AppCoder/buscadores/buscador.html", contexto)
 
@@ -58,28 +58,35 @@ def resBusqueda(request):
     }
     return render(request, "AppCoder/buscadores/resBusqueda.html", contexto)
 
+@login_required # Asegura que solo usuarios autenticados puedan acceder a esta vista
 def articulos(request):
     mensaje_exito = None
     mensaje_error = None
+    articulos = Articulos.objects.all()  # <-- Agrega esta línea
     if request.method == "POST":
         articulo_form = ArticulosForm(request.POST)
         if articulo_form.is_valid():
             nombre = articulo_form.cleaned_data['nombre']
             marca = articulo_form.cleaned_data['marca']
-            # Verifica si ya existe un artículo con ese nombre y marca
             if Articulos.objects.filter(nombre=nombre, marca=marca).exists():
                 mensaje_error = "Ya existe un artículo con ese nombre y marca."
             else:
                 articulo_form.save()
                 mensaje_exito = "¡Artículo agregado exitosamente!"
-                articulo_form = ArticulosForm()  # Formulario vacío tras guardar
+                articulo_form = ArticulosForm()
     else:
         articulo_form = ArticulosForm()
     return render(request, "AppCoder/articulos.html", {
         'articulo_form': articulo_form,
         'mensaje_exito': mensaje_exito,
         'mensaje_error': mensaje_error,
+        'articulos': articulos,  # <-- Pasa la lista al template
     })
+
+# Vista para mostrar el detalle de un artículo y contemplando el error 404 si no se encuentra
+def articulo_detalle(request, pk):
+    articulo = get_object_or_404(Articulos, pk=pk)
+    return render(request, "AppCoder/articulo_detalle.html", {"articulo": articulo})
 
 def registroUsuario(request):
     mensaje = None
@@ -142,7 +149,7 @@ def login_usuario(request):
     return render(request, "AppCoder/login.html", {'form': form, 'mensaje': mensaje})
 
 # Vista para que los usuarios editen sus propios datos
-@login_required
+@login_required # Asegura que solo usuarios autenticados puedan acceder a esta vista
 def mis_datos(request):
     usuario = request.user
     mensaje = None
@@ -156,7 +163,7 @@ def mis_datos(request):
     return render(request, "AppCoder/mis_datos.html", {'form': form, 'mensaje': mensaje})
 
 # Vista para cambiar la contraseña del usuario autenticado
-@login_required
+@login_required # Asegura que solo usuarios autenticados puedan acceder a esta vista
 def cambiar_password(request):
     mensaje = None
     if request.method == 'POST':

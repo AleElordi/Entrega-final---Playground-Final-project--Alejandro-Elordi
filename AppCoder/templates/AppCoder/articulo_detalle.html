@@ -1,0 +1,21 @@
+{% extends 'AppCoder/padre.html' %}
+{% block title %}Detalle de {{ articulo.nombre }}{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow">
+        <div class="card-body">
+
+            {% if articulo.foto %}
+                <img src="{{ articulo.foto }}" alt="Foto" class="img-fluid rounded mb-3" style="max-width:300px;">
+            {% endif %}
+            <p><strong>Marca:</strong> {{ articulo.marca }}</p>
+            <p><strong>Tipo:</strong> {{ articulo.get_tipo_display }}</p>
+            <p><strong>Descripción:</strong> {{ articulo.descripcion }}</p>
+            <p><strong>Precio:</strong> ${{ articulo.precio }}</p>
+            <p><strong>Stock:</strong> {{ articulo.stock }}</p>
+
+            <a href="{% url 'buscador' %}" class="btn btn-secondary mt-3">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
