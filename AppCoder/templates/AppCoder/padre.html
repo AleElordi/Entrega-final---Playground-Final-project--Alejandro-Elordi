@@ -35,7 +35,6 @@
                         {% if request.user.is_authenticated %}
                         <a class="btn btn-outline-primary mx-1" href="{% url 'articulos' %}">Agregar articulos</a>
                         {% endif %}
-                        <a class="btn btn-outline-primary mx-1" href="{% url 'suscriptores' %}">Suscriptores</a>
                         <a class="btn btn-outline-primary mx-1" href="{% url 'datos' %}">Datos</a>
                         <!-- Verifica si el usuario está autenticado -->
                         {% if request.user.is_authenticated %}

@@ -15,6 +15,7 @@
                     <p><strong>Descripción:</strong> {{ object.descripcion }}</p>
                     <p><strong>Precio:</strong> ${{ object.precio }}</p>
                     <p><strong>Stock:</strong> {{ object.stock }}</p>
+                    
 
                     <form method="POST" action="{% url 'productosRepuestos_delete' object.pk %}">
                         {% csrf_token %}

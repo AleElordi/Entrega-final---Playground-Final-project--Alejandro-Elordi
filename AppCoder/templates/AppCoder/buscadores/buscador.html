@@ -28,6 +28,7 @@
                                     <p class="card-text">{{ articulo.marca }}</p>
                                     <p class="card-text">{{ articulo.descripcion }}</p>
                                     <p class="fw-bold">U$D {{ articulo.precio }}</p>
+                                    <p class="card-text"><strong>Fecha de ingreso:</strong> {{ articulo.fecha_ingreso|date:"d/m/Y H:i" }}</p>
                                     <a href="{% url 'articulo_detalle' articulo.pk %}" class="btn btn-info mt-2">Leer más</a>
                                 </div>
                             </div>

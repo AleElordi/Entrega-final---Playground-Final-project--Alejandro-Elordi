@@ -1,7 +1,7 @@
 {% extends 'AppCoder/padre.html' %}
 {% load static %}
 
-{% block title %}Registro de Usuario{% endblock %}
+{% block title %}Inicio o Registro de Usuario{% endblock %}
 
 {% block content %}
 <div class="container py-5 bg-light">
@@ -22,26 +22,10 @@
                             {{ mensaje }}
                         </div>
                     {% endif %}
-
                     <form method="POST" enctype="multipart/form-data" action="{% url 'registroUsuario' %}">
                         {% csrf_token %}
                         <table class="table table-borderless">
-                            <tr>
-                                <td>{{ form.username.label }}</td>
-                                <td>{{ form.username }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ form.password.label }}</td>
-                                <td>{{ form.password }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ form.email.label }}</td>
-                                <td>{{ form.email }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ form.avatar.label }}</td>
-                                <td>{{ form.avatar }}</td>
-                            </tr>
+                            {{ form.as_table }}
                         </table>
                         <div class="d-grid">
                             <input type="submit" class="btn btn-primary" value="Registrarse">

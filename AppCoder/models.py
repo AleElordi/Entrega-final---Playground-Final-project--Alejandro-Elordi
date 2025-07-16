@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from django.utils import timezone
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -46,6 +47,7 @@ class Articulos(models.Model):
     descripcion = models.TextField()
     precio = models.IntegerField()
     stock = models.IntegerField()
+    fecha_ingreso = models.DateTimeField(default=timezone.now) # Campo para registrar la fecha de ingreso del artículo
 
 @receiver(post_delete, sender=Usuario)
 def eliminar_avatar_usuario(sender, instance, **kwargs):
