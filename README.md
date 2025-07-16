@@ -16,7 +16,7 @@ Linkedin: https://www.linkedin.com/in/alejandro-elordi-5323b444/
 
 Github: https://github.com/AleElordi/TuPrimeraPagina-Elordi.git
 
-Video demo de la aplicación: 
+Video demo de la aplicación: https://drive.google.com/file/d/1vYKuHgg-fx_Bz9E5UuxUXwzeP9fgIRUb/view?usp=drive_link
 
  orden en el que se prueban las cosas y/o donde están las funcionalidades:
 
