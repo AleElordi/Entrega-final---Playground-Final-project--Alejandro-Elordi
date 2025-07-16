@@ -43,6 +43,6 @@ urlpatterns = [
     path('cambiar-password/', cambiar_password, name='cambiar_password'),
 ]
 
-# Rutas para manejar archivos multimedia
+# Rutas para manejar archivos multimedia en modo DEBUG
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
