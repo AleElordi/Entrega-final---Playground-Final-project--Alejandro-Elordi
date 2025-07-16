@@ -27,8 +27,9 @@ class articulosCreateView(CreateView):
 
 class articulosUpdateView(UpdateView):
     model = Articulos
-    form_class = ArticulosForm # Formulario para actualizar un artículo existente
-    template_name = 'AppCoder/productosRepuestos/productosRepuestos_form.html'
+    form_class = ArticulosForm
+    template_name = "AppCoder/productosRepuestos/productosRepuestos_form.html"
+    success_url = reverse_lazy('productosRepuestos_list')
 
 class articulosDeleteView(DeleteView):
     model = Articulos
